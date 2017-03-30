@@ -1,0 +1,191 @@
+
+####  lambuda Streams vs. Collections  目的是解放程序员,专注写业务,算法让底层类库去实现(sort,distict,List-ToMap, 过滤. )
+
+#### 清单 2. Java 8 的排序、取值实现
+```
+List<Integer> transactionsIds = transactions.parallelStream().
+ filter(t -> t.getType() == Transaction.GROCERY).
+ sorted(comparing(Transaction::getValue).reversed()).
+ map(Transaction::getId).
+ collect(toList());
+``` 
+ 
+#### 清单 3. 一个流操作的示例
+int sum = widgets.stream()
+.filter(w -> w.getColor() == RED)
+ .mapToInt(w -> w.getWeight())
+ .sum();
+ 
+ 
+ 
+#### 清单 4. 构造流的几种常见方法
+```
+// 1. Individual values
+Stream stream = Stream.of("a", "b", "c");
+// 2. Arrays
+String [] strArray = new String[] {"a", "b", "c"};
+stream = Stream.of(strArray);
+stream = Arrays.stream(strArray);
+// 3. Collections
+List<String> list = Arrays.asList(strArray);
+stream = list.stream();
+```
+
+
+#### 清单 5. 数值流的构造
+
+```
+IntStream.of(new int[]{1, 2, 3}).forEach(System.out::println);
+IntStream.range(1, 3).forEach(System.out::println);
+IntStream.rangeClosed(1, 3).forEach(System.out::println);
+```
+
+#### 清单 6. 流转换为其它数据结构
+
+```
+// 1. Array
+String[] strArray1 = stream.toArray(String[]::new);
+// 2. Collection
+List<String> list1 = stream.collect(Collectors.toList());
+List<String> list2 = stream.collect(Collectors.toCollection(ArrayList::new));
+Set set1 = stream.collect(Collectors.toSet());
+Stack stack1 = stream.collect(Collectors.toCollection(Stack::new));
+// 3. String
+String str = stream.collect(Collectors.joining()).toString();
+```
+
+#### 清单 7. 转换大写
+``` 
+List<String> output = wordList.stream().
+map(String::toUpperCase).
+collect(Collectors.toList());
+```
+
+
+#### 清单 8. 平方数
+```
+
+List<Integer> nums = Arrays.asList(1, 2, 3, 4);
+List<Integer> squareNums = nums.stream().
+map(n -> n * n).
+collect(Collectors.toList());
+```
+
+
+#### 清单 6. 具有可能不会被执行的副作用的流管道
+```
+
+int count = 
+    anArrayList.stream()
+               .map(e -> { System.out.println("Saw " + e); e })
+               .count();
+			   
+
+```
+			   
+
+Streams vs. Collections
+
+
+Set<Box> hasBlueShape = shapes.stream()
+                              .filter(s -> s.getColor() == BLUE)
+                              .map(s -> s.getContainingBox())
+                              .collect(Collectors.toSet());
+
+
+
+ 
+2
+3
+shapes.stream() 
+      .filter(s -> s.getColor() == BLUE)
+      .forEach(s -> s.setColor(RED));
+	  
+	  
+List<Shape> blue = shapes.stream()
+                         .filter(s -> s.getColor() == BLUE)
+                         .collect(Collectors.toList());
+
+						 
+			   int sum = shapes.stream()
+                .filter(s -> s.getColor() == BLUE)
+                .mapToInt(s -> s.getWeight())
+                .sum();
+				
+
+################################################################################
+################################################################################				
+
+				List<Album> favs = new ArrayList<>();
+for (Album a : albums) {
+    boolean hasFavorite = false;
+    for (Track t : a.tracks) {
+        if (t.rating >= 4) {
+            hasFavorite = true;
+            break;
+        }
+    }
+    if (hasFavorite)
+        favs.add(a);
+}
+Collections.sort(favs, new Comparator<Album>() {
+                           public int compare(Album a1, Album a2) {
+                               return a1.name.compareTo(a2.name);
+                           }});
+						   
+##################################################################################					   
+				
+List<Album> sortedFavs =
+  albums.stream()
+        .filter(a -> a.tracks.anyMatch(t -> (t.rating >= 4)))
+        .sorted(Comparator.comparing(a -> a.name))
+        .collect(Collectors.toList());
+
+		
+#########################################################################
+########################################################################
+Map<Integer, Album> albumsByCatalogNumber =
+    albums.stream()
+          .collect(Collectors.toMap(a -> a.getCatalogNumber(), a -> a));
+		  
+ #####################
+ Map<Artist, List<Track>> favsByArtist =
+    tracks.stream()
+          .filter(t -> t.rating >= 4)
+          .collect(Collectors.groupingBy(t -> t.artist));
+		  
+######################################
+
+Map<Artist, Set<Track>> favsByArtist =
+    tracks.stream()
+          .filter(t -> t.rating >= 4)
+          .collect(Collectors.groupingBy(t -> t.artist, 
+                                         Collectors.toSet()));
+										 
+##################################
+
+Map<Artist, Set<Track>> favsByArtist =
+    tracks.stream()
+          .filter(t -> t.rating >= 4)
+          .collect(Collectors.groupingBy(t -> t.artist, 
+                                         Collectors.toSet()));
+
+
+################################################
+
+Map<Artist, Map<Integer, List<Track>>> byArtistAndRating =
+    tracks.stream()
+          .collect(groupingBy(t -> t.artist, 
+                              groupingBy(t -> t.rating)));
+							  
+##########################################################
+Pattern pattern = Pattern.compile(\\s+");
+Map<String, Integer> wordFreq = 
+    tracks.stream()
+          .flatMap(t -> pattern.splitAsStream(t.name)) // Stream<String>
+          .collect(groupingBy(s -> s.toUpperCase(),
+                              counting()));
+							  
+							  
+
+			   
