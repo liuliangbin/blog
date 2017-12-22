@@ -1,15 +1,15 @@
 
- ### 中文分词有两个插件比较常见  jieba  zhParse  ,zhParse 年份比较悠久。stars 比较多一点。 
- ### 安装zhParse
+## 中文分词有两个插件比较常见  jieba  zhParse  ,zhParse 年份比较悠久。stars 比较多一点。 
+## 安装zhParse
 
-#### 安装前准备
+### 安装前准备
  ```
  yum install postgresql10-devel
  ```
-#### 配置pg_config  /usr/pgsql-10/bin/pg_config  ( /usr/pgsql-10/bin  加入到PATH 环境。)
+### 配置pg_config  /usr/pgsql-10/bin/pg_config  ( /usr/pgsql-10/bin  加入到PATH 环境。)
 vi /etc/profile
 
-####
+###
 ```
 git clone https://github.com/amutu/zhparser.git
  cd zhparser/
@@ -21,9 +21,9 @@ psql mydb postgres -c 'CREATE EXTENSION zhparser'
 
 
 
-####
-####
-####
+###
+###
+###
 
 
 ### 使用
