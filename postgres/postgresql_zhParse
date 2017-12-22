@@ -1,6 +1,8 @@
-
 ## Welcome to GitHub Pages
+
 ## 中文分词有两个插件比较常见  jieba  zhParse  ,zhParse 年份比较悠久。stars 比较多一点。 
+zhParse  https://github.com/amutu/zhparser
+pg_jieba：https://github.com/jaiminpan/pg_jieba
 ## 安装zhParse
 
 ### 安装前准备
