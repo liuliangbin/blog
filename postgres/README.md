@@ -1,5 +1,5 @@
 ## Welcome to GitHub Pages
-### postgres 全文检索 (https://github.com/liuliangbin/blog/blob/master/postgres/postgresql_zhParse)
+#### postgres 全文检索(https://github.com/liuliangbin/blog/blob/master/postgres/postgresql_zhParse)
 
 You can use the [editor on GitHub](https://github.com/liuliangbin/postgres/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
