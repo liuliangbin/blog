@@ -4,7 +4,7 @@
 
 ## docker 清理
 
-### 1[docker docker-compose  使用](../master/docker/202101/20210104_01.MD)
+### 1[docker docker-compose  使用](../master/docker/202101/20210101_01.MD)
 https://github.com/liuliangbin/blog/blob/master/docker/202101/20210101_01.md
 ### 2[docker, docker-compose 高级设置使用](../master/docker/202101/20210104_02.MD)
 
